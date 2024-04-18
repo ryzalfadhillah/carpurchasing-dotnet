@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\BERIJALAN\\Training\\00Repository\\Backend\\FinalProject_A3860\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{09A477F1-C1CE-4C8D-81FD-DEFB5543DB3E}|carpurchasing\\carpurchasing.csproj|d:\\berijalan\\training\\00repository\\backend\\finalproject_a3860\\carpurchasing\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{09A477F1-C1CE-4C8D-81FD-DEFB5543DB3E}|carpurchasing\\carpurchasing.csproj|solutionrelative:carpurchasing\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\BERIJALAN\\Training\\00Repository\\Backend\\FinalProject_A3860\\carpurchasing\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "carpurchasing\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\BERIJALAN\\Training\\00Repository\\Backend\\FinalProject_A3860\\carpurchasing\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "carpurchasing\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-22T02:45:12.221Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

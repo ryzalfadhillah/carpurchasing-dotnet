@@ -1,0 +1,15 @@
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\bin\Debug\net8.0\carpurchasing-DAL.deps.json
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\bin\Debug\net8.0\carpurchasing-DAL.runtimeconfig.json
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\bin\Debug\net8.0\carpurchasing-DAL.dll
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\bin\Debug\net8.0\carpurchasing-DAL.pdb
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.csproj.AssemblyReference.cache
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.AssemblyInfoInputs.cache
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.AssemblyInfo.cs
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.csproj.CoreCompileInputs.cache
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.sourcelink.json
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.dll
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\refint\carpurchasing-DAL.dll
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.pdb
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\carpurchasing-DAL.genruntimeconfig.cache
+D:\BERIJALAN\Training\00Repository\Backend\FinalProject_A3860\carpurchasing-DAL\obj\Debug\net8.0\ref\carpurchasing-DAL.dll

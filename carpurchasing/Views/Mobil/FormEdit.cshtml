@@ -1,0 +1,67 @@
+﻿@model carpurchasing_DAL.Models.Dto.Res.ResMobilDto
+@{
+    ViewData["Title"] = "EditCar";
+}
+<div>
+    <h1>Edit Mobil</h1>
+    <form method="post" asp-controller="Mobil" asp-action="ExcecPrc" class="mt-5">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <div class="mb-3">
+            <label for="engineSize" class="form-label">Engine Size</label>
+            <input type="text" class="form-control" id="engineSize" asp-for="EngineSize" autocomplete="off" placeholder="EngineSize">
+        </div>
+        <div class="mb-3">
+            <label for="fuelType" class="form-label">Fuel Type</label>
+            <input type="text" class="form-control" id="fuelType" asp-for="FuelType" autocomplete="off" placeholder="FuelType">
+        </div>
+        <div class="mb-3">
+            <label for="manufactureYear" class="form-label">Manufacture Year</label>
+            <input type="text" class="form-control" id="manufactureYear" asp-for="ManufactureYear" autocomplete="off" placeholder="ManufactureYear">
+        </div>
+        <div class="mb-3">
+            <label for="cdChassis" class="form-label">Cd Chassis</label>
+            <input type="text" class="form-control" id="cdChassis" asp-for="CdChassis" autocomplete="off" placeholder="CdChassis">
+        </div>
+        <div class="mb-3">
+            <label for="cdEngine" class="form-label">Cd Engine</label>
+            <input type="text" class="form-control" id="cdEngine" asp-for="CdEngine" autocomplete="off" placeholder="CdEngine">
+        </div>
+        <div class="mb-3">
+            <label for="brandId" class="form-label">Brand Id</label>
+            <select class="form-select" asp-for="BrandId">
+                @foreach (var data in ViewBag.brand)
+                {
+                    <option value="@data.Id">@data.Name</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="typeId" class="form-label">Type Id</label>
+            <select class="form-select" asp-for="TypeId">
+                @foreach (var data in ViewBag.type)
+                {
+                    <option value="@data.Id">@data.Name</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="usageId" class="form-label">Usage Id</label>
+            <select class="form-select" asp-for="UsageId">
+                @foreach (var data in ViewBag.usage)
+                {
+                    <option value="@data.Id">@data.Name</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="modelId" class="form-label">Model Id</label>
+            <select class="form-select" asp-for="ModelId">
+                @foreach (var data in ViewBag.model)
+                {
+                    <option value="@data.Id">@data.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

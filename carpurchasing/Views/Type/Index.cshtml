@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "Type Page";
+}
+
+<div>
+    <button type="button" class="btn btn-primary refreshButton mb-2">Refresh</button>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <form class="d-flex">
+            <input type="text" name="Search" id="searchBrand" class="form-control me-1" />
+            <button type="submit" class="btn" style="background-color: #416D19; color: white">Search</button>
+        </form>
+        @* <a class="btn btn-primary" asp-controller="User" asp-action="FormTambahUser">Tambah User</a> *@
+        <a class="btn" style="background-color: #416D19; color: white" href="/Type/FormTambahType">Tambah Type</a>
+    </div>
+
+    <table class="table table-dark table-hover mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataType in Model)
+            {
+                <tr>
+                    <th scope="row">@dataType.Name</th>
+                    <td>
+                        <a href="#" class="btn btn-outline-warning editType">Edit</a>
+                        @* <a asp-controller="User" asp-action="FormEditUser" asp-route-id="@dataUser.Id" class="btn btn-outline-warning">Edit</a> *@
+                        <a data-id="@dataType.Id" data-name="@dataType.Name" href="#" class="btn btn-outline-danger deleteType">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Edit Type Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formEditBrand">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalLabel">Edit Type</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="idTypeEdit" />
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="nameEdit" />
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit Type</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Type Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formDeleteBrand">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Brand</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Yakin mau delete  <b id="uNameDeleted"></b> ?</p>
+                    <input type="hidden" name="id" id="id" />
+                    <input type="hidden" name="name" id="name" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete type</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('.refreshButton').on('click', function () {
+            console.log('refresh');
+            window.location.reload();
+        });
+        $('.editType').on("click", function (e) {
+            e.preventDefault();
+            let idEdit = $(this).data("id");
+            let nameEdit = $(this).data("name");
+
+            var myModal = new bootstrap.Modal(document.getElementById('editModal'))
+            myModal.show();
+
+            $("#idBrandEdit").val(idEdit);
+            $("#nameEdit").val(nameEdit);
+
+            $("#formEditBrand").off("submit");
+            $("#formEditBrand").on("submit", function (e) {
+                e.preventDefault();
+                let formDataEditBrand = new FormData(document.getElementById("formEditBrand"));
+
+                $.ajax({
+                    url: "/Type/EditType",
+                    type: "POST",
+                    data: formDataEditBrand,
+                    processData: false,
+                    contentType: false,
+                    headers: { "RequestVerificationToken": $(`#formEditBrand input[name="__RequestVerificationToken"]`).val() },
+                    success: function (result) {
+                        // window.location.reload();
+                    },
+                    error: (jqXHR) => {
+                        console.log(jqXHR.responseText)
+                    }
+                })
+            });
+        })
+
+        $('.deleteType').on("click", function (e) {
+            e.preventDefault();
+            let idDelete = $(this).data("id");
+            let nameDelete = $(this).data("name");
+
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'))
+            myModal.show();
+
+            $("#uNameDeleted").text(nameDelete);
+
+            $('#id').val(idDelete);
+            $('#name').val(nameDelete);
+
+            $("#formDeleteBrand").off("submit");
+            $("#formDeleteBrand").on("submit", function (e) {
+                e.preventDefault();
+                let formDataDeleteBrand = new FormData(document.getElementById("formDeleteBrand"));
+
+                $.ajax({
+                    url: "/Type/DeleteType",
+                    type: "DELETE",
+                    data: formDataDeleteBrand,
+                    processData: false,
+                    contentType: false,
+                    headers: { "RequestVerificationToken": $(`#formDeleteBrand input[name="__RequestVerificationToken"]`).val() },
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: (jqXHR) => {
+                        console.log(jqXHR.responseText)
+                    }
+                })
+            });
+        })
+    </script>
+}

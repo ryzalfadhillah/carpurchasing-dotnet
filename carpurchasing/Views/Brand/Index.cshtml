@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "Brand Page";
+}
+
+<div>
+    <button type="button" class="btn btn-primary refreshButton mb-2">Refresh</button>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <form class="d-flex">
+            <input type="text" name="Search" id="searchBrand" class="form-control me-1"/>
+            <button type="submit" class="btn" style="background-color: #416D19; color: white">Search</button>
+        </form>
+        @* <a class="btn btn-primary" asp-controller="User" asp-action="FormTambahUser">Tambah User</a> *@
+        <a class="btn" style="background-color: #416D19; color: white" asp-controller="Brand" asp-action="FormTambahBrand">Tambah Brand</a>
+    </div>
+
+    <table class="table table-dark table-hover mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Country</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataBrand in Model)
+            {
+                <tr>
+                    <th scope="row">@dataBrand.Id</th>
+                    <td>@dataBrand.Name</td>
+                    <td>@dataBrand.Country</td>
+                    <td>
+                        <a data-id="@dataBrand.Id" data-name="@dataBrand.Name" href="#" class="btn btn-outline-warning editBrand">Edit</a>
+                        @* <a asp-controller="User" asp-action="FormEditUser" asp-route-id="@dataUser.Id" class="btn btn-outline-warning">Edit</a> *@
+                        <a data-id="@dataBrand.Id" data-name="@dataBrand.Name" href="#" class="btn btn-outline-danger deleteBrand">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* Modal Add Brand  *@
+<div class="modal" tabindex="-1" id="modalAddBrand">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" id="formAddBrand">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Brand</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Tambah brand baru
+                    </p>
+                    <div class="container">
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nameAdd" name="name" placeholder="Masukan nama brand...">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="country" class="col-sm-2 col-form-label">Country</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="countryAdd" name="country" placeholder="Masukan country...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formDeleteBrand">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Yakin delete <b id="nameDeleted"></b>
+                    <input type="hidden" name="id" id="brandId" />
+                    <input type="hidden" name="name" id="nameDeleted" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@* end of modal *@
+
+@section Scripts {
+    <script>
+        $('.refreshButton').on('click', function () {
+            console.log('refresh');
+            window.location.reload();
+        });
+        // Add user
+        $('.addBrand').on("click", function (e) {
+            e.preventDefault();
+
+            var myModal = new bootstrap.Modal(document.getElementById('modalAddBrand'))
+            myModal.show()
+
+            $("#formAddBrand").off("submit");
+            $("#formAddBrand").on("submit", function (e) {
+                e.preventDefault();
+                let formDataAddBrand = new FormData(document.getElementById("formAddBrand"));
+                $.ajax({
+                    url: "/Brand/Create",
+                    type: "POST",
+                    data: formDataAddBrand,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        "RequestVerificationToken": $(`#formEditUser input[name="__RequestVerificationToken"]`).val()
+                    },
+                    success: function (result) {
+                        console.log("Berhasil menambah brand baru");
+                        myModal.hide();
+                        window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.ResponseText);
+                    }
+                })
+            });
+        });
+
+        //Delete brand
+        $('.deleteBrand').on('click', function (e) {
+            e.preventDefault();
+            let idDelete = $(this).data("id");
+            let brandDeleted = $(this).data("name");
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'))
+            myModal.show();
+            $("#nameDeleted").text(brandDeleted);
+            $("#brandId").val(idDelete);
+
+            $("#formDeleteBrand").off("submit");
+            $("#formDeleteBrand").on("submit", function (e) {
+                e.preventDefault();
+                let formDataDeleteBrand = new FormData(document.getElementById("formDeleteBrand"));
+                console.log(formDataDeleteBrand);
+                $.ajax({
+                    url: "/Brand/Delete",
+                    type: "DELETE",
+                    data: formDataDeleteBrand,
+                    processData: false,
+                    contentType: false,
+                    // headers: { "RequestVerificationToken": $(`#formDeleteBrand input[name="__RequestVerificationToken"]`).val() },
+                    success: function (result) {
+                        console.log("delete successful");
+                        window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.ResponseText);
+                    }
+                })
+            });
+        })
+    </script>
+}

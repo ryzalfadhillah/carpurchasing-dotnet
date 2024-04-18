@@ -1,0 +1,19 @@
+﻿@model carpurchasing_DAL.Models.Prc.prc_upsert_brand;
+@{
+    ViewData["Title"] = "Tambah Brand";
+}
+
+<div>
+    <h1>Procedure Brand</h1>
+    <form asp-controller="Brand" asp-action="ExecProcedure" method="post" class="mt-5">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" asp-for="Name" autocomplete="off" placeholder="Name">
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" asp-for="Country" autocomplete="off" placeholder="Country">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

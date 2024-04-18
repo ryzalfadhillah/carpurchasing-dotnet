@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Usage Page";
+}
+
+<div>
+    <button type="button" class="btn btn-primary refreshButton mb-2">Refresh</button>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <form class="d-flex">
+            <input type="text" name="Search" id="searchBrand" class="form-control me-1" />
+            <button type="submit" class="btn" style="background-color: #416D19; color: white">Search</button>
+        </form>
+        @* <a class="btn btn-primary" asp-controller="User" asp-action="FormTambahUser">Tambah User</a> *@
+        <a class="btn" style="background-color: #416D19; color: white" asp-controller="Brand" asp-action="FormTambahBrand">Tambah Jenis</a>
+    </div>
+
+    <table class="table table-dark table-hover mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataMobil in Model)
+            {
+                <tr>
+                    <th scope="row">@dataMobil.Id</th>
+                    <td>@dataMobil.Name</td>
+                    <td>
+                        <a href="#" class="btn btn-outline-warning editBrand">Edit</a>
+                        @* <a asp-controller="User" asp-action="FormEditUser" asp-route-id="@dataUser.Id" class="btn btn-outline-warning">Edit</a> *@
+                        <a href="#" class="btn btn-outline-danger deleteBrand">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        $('.refreshButton').on('click', function () {
+            console.log('refresh');
+            window.location.reload();
+        });
+    </script>
+}

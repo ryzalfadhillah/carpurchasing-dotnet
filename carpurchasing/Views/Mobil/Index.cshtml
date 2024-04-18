@@ -1,0 +1,346 @@
+﻿@{
+    ViewData["Title"] = "Mobil Page";
+}
+
+<div>
+    <button type="button" class="btn btn-primary refreshButton mb-2">Refresh</button>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <form class="d-flex">
+            <input type="text" name="Search" id="searchBrand" class="form-control me-1" />
+            <button type="submit" class="btn" style="background-color: #416D19; color: white">Search</button>
+        </form>
+        @* <a class="btn btn-primary" asp-controller="User" asp-action="FormTambahUser">Tambah User</a> *@
+        <a class="btn" style="background-color: #416D19; color: white" asp-controller="Mobil" asp-action="FormMobil">Tambah Mobil</a>
+    </div>
+
+    <table class="table table-dark table-hover mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Engine Size</th>
+                <th scope="col">Fuel Type</th>
+                <th scope="col">Manufacture Year</th>
+                <th scope="col">Cd Chassis</th>
+                <th scope="col">Cd Engine</th>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+                <th scope="col">Usage</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataMobil in Model)
+            {
+                <tr>
+                    <th scope="row">@dataMobil.Id</th>
+                    <td>@dataMobil.EngineSize</td>
+                    <td>@dataMobil.FuelType</td>
+                    <td>@dataMobil.ManufactureYear</td>
+                    <td>@dataMobil.CdChassis</td>
+                    <td>@dataMobil.CdEngine</td>
+                    <td>@dataMobil.ModelId</td>
+                    <td>@dataMobil.TypeId</td>
+                    <td>@dataMobil.UsageId</td>
+                    <td>@dataMobil.BrandId</td>
+                    <td>
+                        @* <a data-id="@dataMobil.Id"
+                           data-brand="@dataMobil.BrandId" data-model="@dataMobil.ModelId" data-type="@dataMobil.TypeId" data-usage="@dataMobil.UsageId"
+                           data-manufacture="@dataMobil.ManufactureYear" data-engine="@dataMobil.EngineSize" data-fuel="@dataMobil.FuelType"
+                           data-cdengine="@dataMobil.CdEngine" data-cdchassis="@dataMobil.CdChassis" href="#" class="btn btn-outline-warning editCar">Edit</a> *@
+                        <a asp-controller="Mobil" asp-action="FormEdit" asp-route-id="@dataMobil.Id" class="btn btn-outline-warning">Edit</a> 
+                        <a data-id="@dataMobil.Id"
+                           data-brand="@dataMobil.BrandId" data-model="@dataMobil.ModelId" data-type="@dataMobil.TypeId" data-usage="@dataMobil.UsageId"
+                           data-manufacture="@dataMobil.ManufactureYear" data-engine="@dataMobil.EngineSize" data-fuel="@dataMobil.FuelType"
+                           data-cdengine="@dataMobil.CdEngine" data-cdchassis="@dataMobil.CdChassis" href="#" class="btn btn-outline-danger deleteCar">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="addCarModal" tabindex="-1" aria-labelledby="addCarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formAddCar">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCarLabel">Add New Car</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="addCarId" />
+                    <div class="mb-3">
+                        <label for="addCarBrandId" class="form-label">Brand Id</label>
+                        <input type="text" class="form-control" id="addCarBrandId" name="brandId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarModelId" class="form-label">Model Id</label>
+                        <input type="text" class="form-control" id="addCarModelId" name="modelId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarTypeId" class="form-label">Type Id</label>
+                        <input type="text" class="form-control" id="addCarTypeId" name="typeId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarUsageId" class="form-label">Usage Id</label>
+                        <input type="text" class="form-control" id="addCarUsageId" name="usageId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarManuYear" class="form-label">Manufacture Year</label>
+                        <input type="text" class="form-control" id="addCarManufactureYear" name="manufactureYear" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarEngineSize" class="form-label">Engine Size</label>
+                        <input type="text" class="form-control" id="addCarEngineSize" name="engineSize" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarFuelType" class="form-label">Fuel Type</label>
+                        <input type="text" class="form-control" id="addCarFuelType" name="fuelType" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarCdEngine" class="form-label">CD Engine</label>
+                        <input type="text" class="form-control" id="addCarCdEngine" name="cdEngine" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="addCarCdChassis" class="form-label">CD Chassis</label>
+                        <input type="text" class="form-control" id="addCarCdChassis" name="cdChassis" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCarModal" tabindex="-1" aria-labelledby="editCarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formEditCar">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCarLabel">Edit Car</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editCarId" />
+                    <div class="mb-3">
+                        <label for="editCarBrandId" class="form-label">Brand Id</label>
+                        <input type="text" class="form-control" id="editCarBrandId" name="brandId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarModelId" class="form-label">Model Id</label>
+                        <input type="text" class="form-control" id="editCarModelId" name="modelId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarTypeId" class="form-label">Type Id</label>
+                        <input type="text" class="form-control" id="editCarTypeId" name="typeId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarUsageId" class="form-label">Usage Id</label>
+                        <input type="text" class="form-control" id="editCarUsageId" name="usageId" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarManuYear" class="form-label">Manufacture Year</label>
+                        <input type="text" class="form-control" id="editCarManufactureYear" name="manufactureYear" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarEngineSize" class="form-label">Engine Size</label>
+                        <input type="text" class="form-control" id="editCarEngineSize" name="engineSize" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarFuelType" class="form-label">Fuel Type</label>
+                        <input type="text" class="form-control" id="editCarFuelType" name="fuelType" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarCdEngine" class="form-label">CD Engine</label>
+                        <input type="text" class="form-control" id="editCarCdEngine" name="cdEngine" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarCdChassis" class="form-label">CD Chassis</label>
+                        <input type="text" class="form-control" id="editCarCdChassis" name="cdChassis" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCarModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formDeleteCar">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Yakin mau delete? </p>
+                    <input type="hidden" name="id" id="deleteCarId" />
+                    <input type="hidden" name="brandId" id="deleteCarBrandId" />
+                    <input type="hidden" name="modelId" id="deleteCarModelId" />
+                    <input type="hidden" name="typeId" id="deleteCarTypeId" />
+                    <input type="hidden" name="usageId" id="deleteCarUsageId" />
+                    <input type="hidden" name="manufactureYear" id="deleteCarManufactureId" />
+                    <input type="hidden" name="fuelType" id="deleteCarFuelType" />
+                    <input type="hidden" name="engineSize" id="deleteCarEngineSize" />
+                    <input type="hidden" name="cdEngine" id="deleteCarCdEngine" />
+                    <input type="hidden" name="cdChassis" id="deleteCarCdChassis" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('.refreshButton').on('click', function () {
+            console.log('refresh');
+            window.location.reload();
+        });
+        $('.addCar').on('click', function (e) {
+            e.preventDefault();
+
+            var myModal = new bootstrap.Modal(document.getElementById('addCarModal'));
+            myModal.show()
+
+            $('#formAddCar').off("submit")
+            $('#formAddCar').on('submit', function (e) {
+                e.preventDefault();
+                let formDataAddCar = new FormData(document.getElementById('formAddCar'))
+                $.ajax({
+                    url: '/Mobil/ExcecPrc',
+                    type: 'POST',
+                    data: formDataAddCar,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'RequestVerificationToken': $('#formDataAddCar input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (res) {
+                        console.log('Add New Car Success');
+                        myModal.hide();
+                        window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.ResponseText);
+                    }
+                })
+            })
+        })
+        $('.editCar').on('click', function (e) {
+            e.preventDefault();
+
+            let idEdit = $(this).data('id');
+            let brandIdEdit = $(this).data('brandId');
+            let modelIdEdit = $(this).data('modelId');
+            let typeIdEdit = $(this).data('typeId');
+            let usageIdEdit = $(this).data('usageId');
+            let manufactureYearEdit = $(this).data('manufactureYear');
+            let engineSizeEdit = $(this).data('engineSize');
+            let fuelTypeEdit = $(this).data('fuelType');
+            let cdEngineEdit = $(this).data('cdEngine');
+            let cdChassisEdit = $(this).data('cdChassis');
+
+            var myModal = new bootstrap.Modal(document.getElementById('editCarModal'));
+            myModal.show()
+
+            $('#editCarId').val(idEdit);
+            $('#editCarBrandId').val(brandIdEdit);
+            $('#editCarModelId').val(modelIdEdit);
+            $('#editCarTypeId').valtypeIdEdit
+            $('#editCarUsageId').val(usageIdEdit);
+            $('#editCarManufactureYear').val(manufactureYearEdit);
+            $('#editEngineSize').val(engineSizeEdit);
+            $('#editFuelType').val(fuelTypeEdit);
+            $('#editCdEngine').val(cdEngineEdit);
+            $('#editCdChassis').val(cdChassisEdit);
+
+            $('#formEditCar').off("submit")
+            $('#formEditCar').on('submit', function (e) {
+                e.preventDefault();
+                let formDataEditCar = new FormData(document.getElementById('formEditCar'))
+                $.ajax({
+                    url: '/Mobil/ExcecPrc',
+                    type: 'POST',
+                    data: formDataEditCar,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'RequestVerificationToken': $('#formEditCar input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (res) {
+                        console.log('Edit Data Success');
+                        myModal.hide();
+                        window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.ResponseText);
+                    }
+                })
+            })
+        })
+        $('.deleteCar').on('click', function (e) {
+            e.preventDefault();
+            let idDelete = $(this).data('id');
+            let brandIdDelete = $(this).data('brandId');
+            let modelIdDelete = $(this).data('modelId');
+            let typeIdDelete = $(this).data('typeId');
+            let usageIdDelete = $(this).data('usageId');
+            let manufactureYearDelete = $(this).data('manufactureYear');
+            let engineSizeDelete = $(this).data('engineSize');
+            let fuelTypeDelete = $(this).data('fuelType');
+            let cdEngineDelete = $(this).data('cdEngine');
+            let cdChassisDelete = $(this).data('cdChassis');
+
+            var myModal = new bootstrap.Modal(document.getElementById('deleteCarModal'));
+            myModal.show()
+
+            $('#deleteCarId').val(idDelete);
+            $('#deleteCarBrandId').val(brandIdDelete);
+            $('#deleteCarModelId').val(modelIdDelete);
+            $('#deleteCarTypeId').val(typeIdDelete);
+            $('#deleteCarUsageId').val(usageIdDelete);
+            $('#deleteCarManufactureYear').val(manufactureYearDelete);
+            $('#deleteCarEngineSize').val(engineSizeDelete);
+            $('#deleteCarFuelType').val(fuelTypeDelete);
+            $('#deleteCarCdEngine').val(cdEngineDelete);
+            $('#deleteCarCdChassis').val(cdChassisDelete);
+
+            $('#formDeleteCar').off("submit")
+            $('#formDeleteCar').on('submit', function (e) {
+                e.preventDefault();
+                let formDataDeleteCar = new FormData(document.getElementById('formDeleteCar'))
+                $.ajax({
+                    url: '/Mobil/Delete',
+                    type: 'DELETE',
+                    data: formDataDeleteCar,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'RequestVerificationToken': $('#formDeleteCar input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (res) {
+                        console.log('Data Deleted');
+                        myModal.hide();
+                        window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.ResponseText);
+                    }
+                })
+            })
+        })
+    </script>
+}
